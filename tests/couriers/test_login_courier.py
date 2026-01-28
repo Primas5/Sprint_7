@@ -6,10 +6,11 @@ import allure
 class TestCourierLogin:
 
     @allure.title("Логин курьера с валидными данными")
-    def test_login_courier_is_successful(self):
+    def test_login_courier_is_successful(self, create_courier_and_delete):
+        st_code, create_result, courier_data = create_courier_and_delete
         login_courier = CourierMeth().login_courier(
-            Data.COURIER_CREDENTIALS["login"], 
-            Data.COURIER_CREDENTIALS["password"]
+            courier_data[0],
+            courier_data[1]
         )
         assert login_courier[0] == 200
         assert login_courier[1]["id"] is not None
